@@ -5,6 +5,8 @@ import DashboardPage from "../features/Dashboard/pages/DashboardPage";
 import UserManagement from "../features/UserManagement/pages/UserManagement";
 import Providers from "../Providers";
 import PatternDayList from "../features/SpokenPattern/pages/PatternDayList";
+import LessonAndExerciseList from "../features/SpokenPattern/pages/LessonAndExerciseList";
+import LessonDetailPage from "../features/SpokenPattern/pages/LessonDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/pattern-day-list",
         element: <PatternDayList />,
+      },
+      {
+        path: "/lesson-and-exercise-list/:day-id",
+        element: <LessonAndExerciseList />,
+      },
+      {
+        path: "/lesson-detail/:lesson-id",
+        element: <LessonDetailPage />,
       },
     ],
   },

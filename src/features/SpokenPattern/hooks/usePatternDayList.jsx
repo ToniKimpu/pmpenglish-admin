@@ -6,7 +6,6 @@ import {
 
 export const usePatternDayList = () => {
   const queryClient = useQueryClient();
-
   const {
     data: days,
     error,

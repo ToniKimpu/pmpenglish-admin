@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Container from "../../../components/Container";
 
+import toast from "react-hot-toast";
+
 import ButtonSpinner from "../../../components/ButtonSpinner";
 import { usePatternDayList } from "../hooks/usePatternDayList";
-import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const DayItem = ({ title, onClick, className }) => (
   <div
@@ -17,6 +19,7 @@ const DayItem = ({ title, onClick, className }) => (
 );
 
 const PatternDayList = () => {
+  const navigate = useNavigate();
   const { days, isLoading, error, addPatternDay } = usePatternDayList();
   const [newOrderNumber, setNewOrderNumber] = useState("");
   const [addingLoading, setAddingLoading] = useState(false); // Adding new loading state
@@ -70,7 +73,9 @@ const PatternDayList = () => {
             <DayItem
               key={day.id}
               title={`Day ${day.order_number}`}
-              onClick={() => alert(`Day ${day.order_number} clicked`)}
+              onClick={() => {
+                navigate(`/lesson-and-exercise-list/${day.id}`);
+              }}
             />
           ))}
         </div>

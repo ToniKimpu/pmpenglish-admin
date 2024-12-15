@@ -7,7 +7,7 @@ const LessonItem = ({ lesson, dayId }) => {
   const navigate = useNavigate();
 
   const { mutate: deleteLesson, isLoading: isDeletingLesson } =
-    useDeleteLesson();
+    useDeleteLesson(dayId);
 
   const handleDeleteLesson = (event) => {
     event.stopPropagation();

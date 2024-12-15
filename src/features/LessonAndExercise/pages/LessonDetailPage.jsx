@@ -6,11 +6,13 @@ import { useLessonDetails } from "../hooks/usePatternLesson";
 
 const LessonDetailPage = () => {
   const { "lesson-id": lessonId } = useParams();
-
   const { data: lessonDetails, isLoading } = useLessonDetails(lessonId);
 
   if (isLoading) {
     return <div>Loading....</div>;
+  }
+  if (!lessonDetails?.length) {
+    return <div>No data</div>;
   }
 
   return (
@@ -28,18 +30,14 @@ const LessonDetailPage = () => {
               >
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col justify-start">
-                    <p className="font-bold text-black"> I used to + v1</p>
-                    <p>ကျွန်တော် .... လေ့ရှိတယ်</p>
+                    <p className="font-bold text-black">{pattern.pattern}</p>
+                    <p>{pattern.title}</p>
                   </div>
                   <button className="hover:bg-red-50 rounded-full p-1">
                     <HiPlayCircle className="w-8 h-8 text-blue-600" />
                   </button>
                 </div>
-                <p>
-                  အတိတ်မှာကိုယ်လုပ်လေ့လုပ်ထရှိတဲ့ အရာတွေ၊အတိတ်မှာ
-                  ဖြစ်လေ့ဖြစ်ထရှိတဲ့အရာတွေကို ပြောချင်တဲ့အခါ သည်စကားစုကို
-                  အသုံးပြုပြီးပြောလို့ရပါတယ်။
-                </p>
+                <p>{pattern.description}</p>
 
                 {pattern.pattern_examples?.map((example, index) => (
                   <div key={index} className="flex flex-col gap-3">
@@ -48,9 +46,9 @@ const LessonDetailPage = () => {
                       <div className="w-3 h-3 bg-black rounded-full"></div>
                       <div className="flex flex-col justify-start">
                         <p className="font-bold text-black">
-                          I used to play soccer every weekend.
+                          {example.english_text}
                         </p>
-                        <p>ကျွန်တော်အရင်က ဘောလုံးကစားလေ့ရှိတယ်။</p>
+                        <p>{example.burmese_text}</p>
                       </div>
                     </div>
                   </div>

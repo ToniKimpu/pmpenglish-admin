@@ -4,15 +4,23 @@ import {
   patternDayList,
 } from "../../../services/patternDayList";
 
-export const usePatternDayList = () => {
-  const queryClient = useQueryClient();
+export const usePatternDayList = (dayId) => {
   const {
     data: days,
     error,
     isLoading,
-  } = useQuery("pattern-days", patternDayList, {
+  } = useQuery(["pattern-days", dayId], patternDayList, {
     staleTime: 1000 * 60 * 5,
   });
+
+  return {
+    days,
+    error,
+    isLoading,
+  };
+};
+export const useAddPatternDay = () => {
+  const queryClient = useQueryClient();
 
   const addDayMutation = useMutation(addPatternDay, {
     onSuccess: () => {
@@ -24,9 +32,7 @@ export const usePatternDayList = () => {
   });
 
   return {
-    days,
-    error,
-    isLoading,
-    addPatternDay: addDayMutation.mutateAsync, // Expose the mutateAsync function
+    addPatternDay: addDayMutation.mutateAsync,
+    adding: addDayMutation.isLoading, // Expose the mutateAsync function
   };
 };

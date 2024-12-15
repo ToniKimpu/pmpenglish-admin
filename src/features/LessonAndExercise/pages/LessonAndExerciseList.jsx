@@ -42,7 +42,7 @@ const LessonAndExerciseList = () => {
   const [lessonName, setLessonName] = useState("");
 
   const { data: lessons } = useLessons(dayId);
-  const { mutate: addLesson, isLoading: isAddingLesson } = useAddLesson();
+  const { mutate: addLesson, isLoading: isAddingLesson } = useAddLesson(dayId);
 
   // Handle adding lesson
   const handleAddLesson = () => {
@@ -63,10 +63,9 @@ const LessonAndExerciseList = () => {
     <section>
       <Container className={"flex flex-col gap-4 px-6 lg:px-0"}>
         <h1 id="dashboard-title" className="text-2xl font-bold mt-6">
-          Day {dayId} {/* Dynamic Day title */}
+          Day {dayId}
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
-          {/* Lesson Form */}
           <div className="flex flex-col gap-2 p-4 border rounded-md border-gray-300">
             <AddItemForm
               label="Add New Lesson"

@@ -4,9 +4,10 @@ import RegisterPage from "../features/auth/pages/RegisterPage";
 import DashboardPage from "../features/Dashboard/pages/DashboardPage";
 import UserManagement from "../features/UserManagement/pages/UserManagement";
 import Providers from "../Providers";
-import PatternDayList from "../features/SpokenPattern/pages/PatternDayList";
-import LessonAndExerciseList from "../features/SpokenPattern/pages/LessonAndExerciseList";
-import LessonDetailPage from "../features/SpokenPattern/pages/LessonDetailPage";
+import PatternDayList from "../features/LessonAndExercise/pages/PatternDayList";
+import LessonAndExerciseList from "../features/LessonAndExercise/pages/LessonAndExerciseList";
+import LessonDetailPage from "../features/LessonAndExercise/pages/LessonDetailPage";
+import SpokenPatternList from "../features/SpokenPattern/SpokenPatternList";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/lesson-detail/:lesson-id",
         element: <LessonDetailPage />,
+      },
+      {
+        path: "/spoken-pattern-list",
+        element: <SpokenPatternList />,
       },
     ],
   },

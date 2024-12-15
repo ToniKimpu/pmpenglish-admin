@@ -4,7 +4,10 @@ import Container from "../../../components/Container";
 import toast from "react-hot-toast";
 
 import ButtonSpinner from "../../../components/ButtonSpinner";
-import { usePatternDayList } from "../hooks/usePatternDayList";
+import {
+  useAddPatternDay,
+  usePatternDayList,
+} from "../hooks/usePatternDayList";
 import { useNavigate } from "react-router-dom";
 
 const DayItem = ({ title, onClick, className }) => (
@@ -20,9 +23,10 @@ const DayItem = ({ title, onClick, className }) => (
 
 const PatternDayList = () => {
   const navigate = useNavigate();
-  const { days, isLoading, error, addPatternDay } = usePatternDayList();
+  const { days, isLoading, error } = usePatternDayList();
+  const { addPatternDay, adding } = useAddPatternDay();
   const [newOrderNumber, setNewOrderNumber] = useState("");
-  const [addingLoading, setAddingLoading] = useState(false); // Adding new loading state
+  // Adding new loading state
 
   const handleAddDay = async () => {
     if (!newOrderNumber) {
@@ -31,13 +35,13 @@ const PatternDayList = () => {
     }
 
     try {
-      setAddingLoading(true); // Start loading
+      // Start loading
       await addPatternDay(parseInt(newOrderNumber, 10));
       setNewOrderNumber(""); // Clear input on success
     } catch (err) {
       toast.error(err.message);
     } finally {
-      setAddingLoading(false); // Stop loading
+      // Stop loading
     }
   };
 
@@ -62,10 +66,10 @@ const PatternDayList = () => {
             className="flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button"
             onClick={handleAddDay}
-            disabled={addingLoading} // Disable button while adding
+            disabled={adding} // Disable button while adding
           >
             add New Day
-            {addingLoading && <ButtonSpinner />}
+            {adding && <ButtonSpinner />}
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">

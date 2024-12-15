@@ -33,7 +33,7 @@ const DashboardPage = () => {
             }}
           />
           <DashboardGridItem
-            title="Spoken Patterns"
+            title="Lesson and Exercise List"
             onClick={() => navigate("/pattern-day-list")}
           />
           <DashboardGridItem
@@ -49,8 +49,8 @@ const DashboardPage = () => {
             onClick={() => console.log("Navigate to User Management")}
           />
           <DashboardGridItem
-            title="User Management"
-            onClick={() => console.log("Navigate to User Management")}
+            title="Spoken Patterns"
+            onClick={() => navigate("/spoken-pattern-list")}
           />
         </div>
       </Container>

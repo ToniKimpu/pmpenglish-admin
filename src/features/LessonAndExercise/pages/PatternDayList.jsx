@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Container from "../../../components/Container";
 
 import toast from "react-hot-toast";
 
-import ButtonSpinner from "../../../components/ButtonSpinner";
+import { useNavigate } from "react-router-dom";
+import ButtonSpinner2 from "../../../components/ButtonSpinner2";
 import {
   useAddPatternDay,
   usePatternDayList,
 } from "../hooks/usePatternDayList";
-import { useNavigate } from "react-router-dom";
 
 const DayItem = ({ title, onClick, className }) => (
   <div
@@ -69,7 +69,7 @@ const PatternDayList = () => {
             disabled={adding} // Disable button while adding
           >
             add New Day
-            {adding && <ButtonSpinner />}
+            {adding && <ButtonSpinner2 />}
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">

@@ -10,12 +10,9 @@ import {
 
 import { validateEnglishText } from "@/utils/textValidation";
 import { useForm } from "react-hook-form";
-import ButtonSpinner from "../../../../components/ButtonSpinner";
-import {
-  useCreatePatternVocabulary,
-  useEditPatternVocabulary,
-} from "../../hooks/usePatternVocabulary";
-import { HiArchiveBox, HiPencilSquare } from "react-icons/hi2";
+import { HiPencilSquare } from "react-icons/hi2";
+import ButtonSpinner2 from "../../../../components/ButtonSpinner2";
+import { useEditPatternVocabulary } from "../../hooks/usePatternVocabulary";
 
 const EditPatternVocabularyDialog = ({ patternId, vocabulary }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -100,7 +97,7 @@ const EditPatternVocabularyDialog = ({ patternId, vocabulary }) => {
                 disabled={editing}
               >
                 {editing ? "Editing..." : "Edit"}
-                {editing && <ButtonSpinner />}
+                {editing && <ButtonSpinner2 />}
               </button>
             </div>
           </div>

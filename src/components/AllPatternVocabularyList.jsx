@@ -1,11 +1,11 @@
-import SheetAllPatternVocabularies from "@/components/sheet/SheetAllPatternVocabularies";
+import { useAllPatternVocabularies } from "@/features/SpokenPattern/hooks/usePatternVocabulary";
 import { usePatternVocabularies } from "../hooks/usePatternVocabulary";
 
 import CreatePatternVocabularyDialog from "./dialogs/CreatePatternVocabularyDialog";
 import PatternVocabularyItem from "./PatternVocabularyItem";
 
-const PatternVocabularyList = ({ patternId }) => {
-  const { vocabularies, isLoading, error } = usePatternVocabularies(patternId);
+const AllPatternVocabularyList = ({ patternId }) => {
+  const { vocabularies, isLoading, error } = useAllPatternVocabularies();
 
   return (
     <div className="flex flex-col gap-2 p-4 border rounded-md border-gray-300">
@@ -17,7 +17,6 @@ const PatternVocabularyList = ({ patternId }) => {
         {vocabularies?.map((vocabulary) => {
           return (
             <PatternVocabularyItem
-              key={vocabulary.id}
               vocabulary={vocabulary}
               patternId={patternId}
             />
@@ -25,9 +24,14 @@ const PatternVocabularyList = ({ patternId }) => {
         })}
       </div>
 
-      <SheetAllPatternVocabularies />
+      <button
+        type="button"
+        className="mt-3 text-white bg-appColor hover:bg-appHoverColor focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Add new Vocabulary
+      </button>
     </div>
   );
 };
 
-export default PatternVocabularyList;
+export default AllPatternVocabularyList;

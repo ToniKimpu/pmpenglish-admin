@@ -7,14 +7,18 @@ import {
 } from "@/services/patternVocabulary";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-export const useAllPatternVocabularies = () => {
+export const useAllPatternVocabularies = (keyword) => {
   const {
     data: allVocabularies,
     error,
     isLoading,
-  } = useQuery(["all-pattern-vocabulary-list"], () => allPatternVocabularies, {
-    staleTime: 1000 * 60 * 5,
-  });
+  } = useQuery(
+    ["all-pattern-vocabulary-list", keyword],
+    () => allPatternVocabularies(keyword),
+    {
+      staleTime: 1000 * 60 * 5,
+    }
+  );
   return {
     allVocabularies,
     error,

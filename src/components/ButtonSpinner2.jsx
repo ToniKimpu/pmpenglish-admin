@@ -1,6 +1,6 @@
 import React from "react";
 
-const ButtonSpinner = () => {
+const ButtonSpinner2 = () => {
   return (
     <div role="status">
       <svg
@@ -24,4 +24,4 @@ const ButtonSpinner = () => {
   );
 };
 
-export default ButtonSpinner;
+export default ButtonSpinner2;

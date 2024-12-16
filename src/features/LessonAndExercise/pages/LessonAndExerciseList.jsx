@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import ButtonSpinner from "../../../components/ButtonSpinner";
-import Container from "../../../components/Container";
-import { useAddLesson, useLessons } from "../hooks/usePatternLesson";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
+import ButtonSpinner from "../../../components/ButtonSpinner2";
+import Container from "../../../components/Container";
 import LessonItem from "../components/LessonItem";
-import EditDialog from "../components/EditDialog";
+import { useAddLesson, useLessons } from "../hooks/usePatternLesson";
 
 // Reusable AddItemForm Component
 const AddItemForm = ({

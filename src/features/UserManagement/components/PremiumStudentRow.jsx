@@ -1,7 +1,6 @@
-import React from "react";
-import { useRemovePremiumStudent } from "../hooks/useUser";
 import toast from "react-hot-toast";
-import ButtonSpinner from "../../../components/ButtonSpinner";
+import ButtonSpinner2 from "../../../components/ButtonSpinner2";
+import { useRemovePremiumStudent } from "../hooks/useUser";
 
 const PremiumStudentRow = ({
   student: { name, email, account_id, user_type, id },
@@ -35,7 +34,7 @@ const PremiumStudentRow = ({
           onClick={() => handleRemovePremiumUser(id)}
         >
           Remove Premium
-          {isLoading && <ButtonSpinner />}
+          {isLoading && <ButtonSpinner2 />}
         </button>
       </td>
     </tr>

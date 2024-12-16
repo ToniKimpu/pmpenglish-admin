@@ -1,7 +1,6 @@
-import React from "react";
-import ButtonSpinner from "../../../components/ButtonSpinner";
-import { useDeleteLesson } from "../hooks/usePatternLesson";
 import { useNavigate } from "react-router-dom";
+import ButtonSpinner from "../../../components/ButtonSpinner2";
+import { useDeleteLesson } from "../hooks/usePatternLesson";
 
 const LessonItem = ({ lesson, dayId }) => {
   const navigate = useNavigate();

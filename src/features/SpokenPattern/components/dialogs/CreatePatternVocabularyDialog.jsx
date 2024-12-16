@@ -10,7 +10,7 @@ import {
 
 import { validateEnglishText } from "@/utils/textValidation";
 import { useForm } from "react-hook-form";
-import ButtonSpinner from "../../../../components/ButtonSpinner";
+import ButtonSpinner2 from "../../../../components/ButtonSpinner2";
 import { useCreatePatternVocabulary } from "../../hooks/usePatternVocabulary";
 
 const CreatePatternVocabularyDialog = ({ patternId }) => {
@@ -98,7 +98,7 @@ const CreatePatternVocabularyDialog = ({ patternId }) => {
                 disabled={creating}
               >
                 {creating ? "Creating..." : "Create"}
-                {creating && <ButtonSpinner />}
+                {creating && <ButtonSpinner2 />}
               </button>
             </div>
           </div>

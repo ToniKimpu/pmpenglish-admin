@@ -1,11 +1,14 @@
 import { supabase } from "./supabaseClient";
 
-export const allPatternVocabularies = async () => {
-  const { data, error } = await supabase
+export const allPatternVocabularies = async (keyword = "") => {
+  let query = supabase
     .from("pattern_vocabularies")
     .select("*")
-    .eq("is_deleted", false)
-    .order("id", { ascending: false });
+    .eq("is_deleted", false);
+  if (keyword) {
+    query = query.ilike("english_text", `%${keyword}%`);
+  }
+  const { data, error } = await query.order("id", { ascending: false });
   if (error) {
     console.log("error", error.message);
     throw new Error("Failed to fetch patterns: " + error.message);

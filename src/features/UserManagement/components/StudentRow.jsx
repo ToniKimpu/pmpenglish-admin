@@ -1,6 +1,5 @@
-import React from "react";
+import ButtonSpinner2 from "../../../components/ButtonSpinner2";
 import { useAddPremiumStudent } from "../hooks/useUser";
-import ButtonSpinner from "../../../components/ButtonSpinner";
 
 const StudentRow = ({ student }) => {
   const { mutate: addPremiumUser, isLoading } = useAddPremiumStudent();
@@ -28,7 +27,7 @@ const StudentRow = ({ student }) => {
           }}
         >
           {added ? "Added" : "Add Premium"}
-          {isLoading && <ButtonSpinner />}
+          {isLoading && <ButtonSpinner2 />}
         </button>
       </td>
     </tr>

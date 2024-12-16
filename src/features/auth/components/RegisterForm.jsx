@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import ButtonSpinner from "../../../components/ButtonSpinner";
+import ButtonSpinner from "../../../components/ButtonSpinner2";
 import useRegister from "../hooks/useRegister";
 
 const RegisterForm = () => {

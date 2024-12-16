@@ -1,13 +1,14 @@
+import PatternDetailPage from "@/features/SpokenPattern/pages/PatternDetailPage";
 import { createBrowserRouter } from "react-router-dom";
 import LoginPage from "../features/auth/pages/LoginPage";
 import RegisterPage from "../features/auth/pages/RegisterPage";
 import DashboardPage from "../features/Dashboard/pages/DashboardPage";
-import UserManagement from "../features/UserManagement/pages/UserManagement";
-import Providers from "../Providers";
-import PatternDayList from "../features/LessonAndExercise/pages/PatternDayList";
 import LessonAndExerciseList from "../features/LessonAndExercise/pages/LessonAndExerciseList";
 import LessonDetailPage from "../features/LessonAndExercise/pages/LessonDetailPage";
-import SpokenPatternList from "../features/SpokenPattern/SpokenPatternList";
+import PatternDayList from "../features/LessonAndExercise/pages/PatternDayList";
+import SpokenPatternList from "../features/SpokenPattern/pages/SpokenPatternList";
+import UserManagement from "../features/UserManagement/pages/UserManagement";
+import Providers from "../Providers";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/spoken-pattern-list",
         element: <SpokenPatternList />,
+      },
+      {
+        path: "/spoken-pattern-detail/:pattern-id",
+        element: <PatternDetailPage />,
       },
     ],
   },

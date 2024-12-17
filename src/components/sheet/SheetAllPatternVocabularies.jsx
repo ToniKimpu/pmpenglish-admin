@@ -10,30 +10,39 @@ import {
 import { debounce } from "lodash";
 import { useState } from "react";
 import usePatternVocabularyStore from "@/stores/usePatternVocabularyStore";
+import { X } from "lucide-react";
 
 const SheetAllPatternVocabularies = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [keyword, setKeyword] = useState("");
   const { allVocabularies, isLoading, error } =
     useAllPatternVocabularies(keyword);
+
   const { vocabularies, addVocabulary, removeVocabulary } =
     usePatternVocabularyStore();
-
-  console.log("vocabularies", vocabularies);
 
   const handleSearch = debounce((e) => {
     setKeyword(e.target.value);
   }, 500);
   return (
-    <Sheet side={"left"}>
+    <Sheet side={"left"} open={isOpen}>
       <SheetTrigger asChild>
         <button
+          onClick={() => setIsOpen(true)}
           type="button"
           className="mt-3 text-white bg-appColor hover:bg-appHoverColor focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
           Add new Vocabulary
         </button>
       </SheetTrigger>
-      <SheetContent side={"left"}>
+      <SheetContent side={"left"} showCloseButton={false}>
+        <button
+          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:bg-appColor hover:text-white focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          onClick={() => setIsOpen(false)}
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </button>
         <SheetHeader>
           <SheetTitle>All Vocabularies</SheetTitle>
           <SheetDescription></SheetDescription>

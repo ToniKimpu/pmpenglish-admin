@@ -1,4 +1,4 @@
-import { HiArchiveBox } from "react-icons/hi2";
+import { HiTrash } from "react-icons/hi2";
 import ButtonSpinner2 from "../../../components/ButtonSpinner2";
 import { useDeletePatternVocabulary } from "../hooks/usePatternVocabulary";
 import EditPatternVocabularyDialog from "./dialogs/EditPatternVocabularyDialog";
@@ -26,11 +26,7 @@ const PatternVocabularyItem = ({ vocabulary, patternId }) => {
         className=" hover:bg-red-50 rounded-full p-2"
         onClick={() => handleDelete(vocabulary.id)}
       >
-        {deleting ? (
-          <ButtonSpinner2 />
-        ) : (
-          <HiArchiveBox className="text-appColor" />
-        )}
+        {deleting ? <ButtonSpinner2 /> : <HiTrash className="text-appColor" />}
       </button>
     </div>
   );

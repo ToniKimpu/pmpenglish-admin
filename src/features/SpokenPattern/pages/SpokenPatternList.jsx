@@ -11,9 +11,20 @@ const SpokenPatternList = () => {
   return (
     <section>
       <Container className={"flex flex-col gap-4 px-6 lg:px-0"}>
-        <h1 id="dashboard-title" className="text-2xl font-bold mt-6">
-          Spoken Patterns
-        </h1>
+        <div className="mt-6 flex justify-between items-center">
+          <h1 id="dashboard-title" className="text-2xl font-bold">
+            Spoken Patterns
+          </h1>
+          <button
+            className="flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="button"
+            // onClick={handleAddDay}
+            // disabled={adding}
+          >
+            Create New Pattern
+            {/* {adding && <ButtonSpinner2 />} */}
+          </button>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {patterns?.map((pattern) => {
             return (

@@ -1,7 +1,11 @@
 import {
-  useAddPatternVocabularyRelation,
-  useAllPatternVocabularies,
-} from "@/features/SpokenPattern/hooks/usePatternVocabulary";
+  useAttachPatternToLesson,
+  useSpokenPatternsWithoutLesson,
+} from "@/features/SpokenPattern/hooks/useSpokenPattern";
+import useLessonPatternStore from "@/stores/useLessonPatternStore";
+import { debounce } from "lodash";
+import { X } from "lucide-react";
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -9,41 +13,34 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../ui/sheet";
-import { debounce } from "lodash";
-import { useState } from "react";
-import usePatternVocabularyStore from "@/stores/usePatternVocabularyStore";
-import { X } from "lucide-react";
+} from "../../../components/ui/sheet";
 
-const SheetAllPatternVocabularies = ({
-  patternId,
-  addVocabularyRelation,
-  adding,
-}) => {
+const SheetAllPatterns = ({ lessonId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [keyword, setKeyword] = useState("");
-  const { allVocabularies, isLoading, error } =
-    useAllPatternVocabularies(keyword);
-
-  const { vocabularies, addVocabulary, removeVocabulary } =
-    usePatternVocabularyStore();
+  const { allPatterns, isLoading, error } = useSpokenPatternsWithoutLesson();
+  const { mutate: addAttachPatternToLesson, isLoading: adding } =
+    useAttachPatternToLesson();
+  const { patterns, addPattern, removePattern } = useLessonPatternStore();
 
   const handleSearch = debounce((e) => {
-    setKeyword(e.target.value);
+    // setKeyword(e.target.value);
   }, 500);
 
-  const handleAddVocabulary = () => {
-    const insertVocabularies = vocabularies.map((vocabulary) => ({
-      vocabulary_id: vocabulary.id,
-      patternId: patternId,
-      pattern_exercise_id: patternId,
+  const handleAttachPattern = () => {
+    const attachPatterns = patterns.map((pattern) => ({
+      id: pattern.id,
+      lessonId: lessonId,
     }));
-    addVocabularyRelation(insertVocabularies, {
+    addAttachPatternToLesson(attachPatterns, {
       onSuccess: () => {
         setIsOpen(false);
       },
     });
   };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Sheet side={"left"} open={isOpen}>
@@ -53,7 +50,7 @@ const SheetAllPatternVocabularies = ({
           type="button"
           className="mt-3 text-white bg-appColor hover:bg-appHoverColor focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Add new Vocabulary
+          Add new Pattern
         </button>
       </SheetTrigger>
       <SheetContent side={"left"} showCloseButton={false}>
@@ -65,7 +62,7 @@ const SheetAllPatternVocabularies = ({
           <span className="sr-only">Close</span>
         </button>
         <SheetHeader>
-          <SheetTitle>All Vocabularies</SheetTitle>
+          <SheetTitle>All Patterns</SheetTitle>
           <SheetDescription></SheetDescription>
         </SheetHeader>
         <div className="flex flex-col h-full">
@@ -78,23 +75,19 @@ const SheetAllPatternVocabularies = ({
           />
 
           <div className="flex-grow overflow-y-scroll mt-3 space-y-3">
-            {allVocabularies?.map((vocabulary, index) => {
-              const isChecked = vocabularies.find(
-                (v) => v.id === vocabulary.id
-              );
+            {allPatterns?.map((pattern, index) => {
+              const isChecked = patterns.find((p) => p.id === pattern.id);
               return (
                 <div
                   key={index}
                   className="border-b pb-2 flex justify-between items-center cursor-pointer"
                   onClick={() => {
-                    isChecked
-                      ? removeVocabulary(vocabulary.id)
-                      : addVocabulary(vocabulary); // Toggle add/remove on click
+                    isChecked ? removePattern(pattern.id) : addPattern(pattern); // Toggle add/remove on click
                   }}
                 >
                   <div className="flex flex-col">
-                    <p className="font-bold">{vocabulary.english_text}</p>
-                    <p>{vocabulary.burmese_text}</p>
+                    <p className="font-bold">{pattern.pattern}</p>
+                    <p>{pattern.title}</p>
                   </div>
                   <input
                     id={`checkbox-${index}`}
@@ -107,12 +100,13 @@ const SheetAllPatternVocabularies = ({
               );
             })}
           </div>
+
           <button
             className="mt-3 mb-6 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            onClick={handleAddVocabulary}
+            onClick={handleAttachPattern}
             disabled={adding}
           >
-            {adding ? "Adding..." : "Add Vocabularies"}
+            {adding ? "Adding..." : "Add Patterns"}
           </button>
         </div>
       </SheetContent>
@@ -120,4 +114,4 @@ const SheetAllPatternVocabularies = ({
   );
 };
 
-export default SheetAllPatternVocabularies;
+export default SheetAllPatterns;

@@ -1,10 +1,14 @@
 import {
+  allPatternsByLessonId,
+  allPatternsWithoutLesson,
+  attachPatternToLesson,
   createSpokenPattern,
   deleteSpokenPattern,
   editSpokenPattern,
   patternList,
+  unAttachPatternToLesson,
 } from "@/services/spokenPattern";
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export const useSpokenPatterns = () => {
   const {
@@ -22,11 +26,42 @@ export const useSpokenPatterns = () => {
   };
 };
 
+export const useSpokenPatternsWithoutLesson = () => {
+  const {
+    data: allPatterns,
+    error,
+    isLoading,
+  } = useQuery(["pattern-list", "without-lesson"], allPatternsWithoutLesson, {
+    staleTime: 1000 * 60 * 5,
+  });
+
+  return {
+    allPatterns,
+    error,
+    isLoading,
+  };
+};
+
+export const useAllPatternsByLessonId = (lessonId) => {
+  const {
+    data: allPatterns,
+    error,
+    isLoading,
+  } = useQuery(["pattern-list"], () => allPatternsByLessonId(lessonId), {
+    staleTime: 1000 * 60 * 5,
+  });
+  return {
+    allPatterns,
+    error,
+    isLoading,
+  };
+};
+
 export const useCreateSpokenPattern = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ pattern, title, description, audio_path }) =>
-      createSpokenPattern(pattern, title, description, audio_path),
+    ({ pattern, title, description, audio_1, audio_2 }) =>
+      createSpokenPattern(pattern, title, description, audio_1, audio_2),
     {
       onSuccess: (_) => {
         queryClient.invalidateQueries(["pattern-list"]);
@@ -62,6 +97,33 @@ export const useDeleteSpokenPattern = () => {
     },
     onError: (error) => {
       console.error("Error delete pattern:", error);
+    },
+  });
+};
+
+export const useAttachPatternToLesson = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (patternRelations) => attachPatternToLesson(patternRelations),
+    {
+      onSuccess: (_) => {
+        queryClient.invalidateQueries(["pattern-list"]);
+      },
+      onError: (error) => {
+        console.error("Error attach pattern to lesson:", error);
+      },
+    }
+  );
+};
+
+export const useUnAttachPatternToLesson = () => {
+  const queryClient = useQueryClient();
+  return useMutation((patternId) => unAttachPatternToLesson(patternId), {
+    onSuccess: (_) => {
+      queryClient.invalidateQueries(["pattern-list"]);
+    },
+    onError: (error) => {
+      console.error("Error attach pattern to lesson:", error);
     },
   });
 };

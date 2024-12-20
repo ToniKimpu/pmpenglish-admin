@@ -9,6 +9,7 @@ import PatternDayList from "../features/LessonAndExercise/pages/PatternDayList";
 import SpokenPatternList from "../features/SpokenPattern/pages/SpokenPatternList";
 import UserManagement from "../features/UserManagement/pages/UserManagement";
 import Providers from "../Providers";
+import ExerciseList from "@/features/LessonAndExercise/pages/ExerciseList";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/spoken-pattern-detail/:pattern-id",
         element: <PatternDetailPage />,
+      },
+      {
+        path: "/exercise_list/:exercise-id",
+        element: <ExerciseList />,
       },
     ],
   },

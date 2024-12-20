@@ -1,5 +1,7 @@
 import {
+  addPatternVocabularyRelation,
   allPatternVocabularies,
+  createPatternExerciseVocabulary,
   createPatternVocabulary,
   deletePatternVocabulary,
   editPatternVocabulary,
@@ -61,6 +63,25 @@ export const useCreatePatternVocabulary = (patternId) => {
   );
 };
 
+export const useCreatePatternExerciseVocabulary = (exerciseId) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ({ exercise_id, english_text, burmese_text }) =>
+      createPatternExerciseVocabulary(exercise_id, english_text, burmese_text),
+    {
+      onSuccess: (_) => {
+        queryClient.invalidateQueries([
+          "pattern-exercises-vocabularies",
+          exerciseId,
+        ]);
+      },
+      onError: (error) => {
+        console.error("Error adding lesson:", error);
+      },
+    }
+  );
+};
+
 export const useEditPatternVocabulary = (patternId) => {
   const queryClient = useQueryClient();
   return useMutation(
@@ -80,7 +101,22 @@ export const useEditPatternVocabulary = (patternId) => {
 export const useDeletePatternVocabulary = (patternId) => {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ vocabularyId }) => deletePatternVocabulary(vocabularyId),
+    ({ vocabularyId }) => deletePatternVocabulary(vocabularyId, patternId),
+    {
+      onSuccess: (_) => {
+        queryClient.invalidateQueries(["pattern-vocabulary-list", patternId]);
+      },
+      onError: (error) => {
+        console.error("Error adding lesson:", error);
+      },
+    }
+  );
+};
+
+export const useAddPatternVocabularyRelation = (patternId) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (vocabularyRelations) => addPatternVocabularyRelation(vocabularyRelations),
     {
       onSuccess: (_) => {
         queryClient.invalidateQueries(["pattern-vocabulary-list", patternId]);

@@ -3,7 +3,9 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import ButtonSpinner from "../../../components/ButtonSpinner2";
 import Container from "../../../components/Container";
+import ExerciseItem from "../components/ExerciseItem";
 import LessonItem from "../components/LessonItem";
+import { useAddExercise, useExercises } from "../hooks/useExercise";
 import { useAddLesson, useLessons } from "../hooks/usePatternLesson";
 
 // Reusable AddItemForm Component
@@ -39,9 +41,14 @@ const AddItemForm = ({
 const LessonAndExerciseList = () => {
   const { "day-id": dayId } = useParams();
   const [lessonName, setLessonName] = useState("");
+  const [exerciseName, setExerciseName] = useState("");
 
   const { data: lessons } = useLessons(dayId);
   const { mutate: addLesson, isLoading: isAddingLesson } = useAddLesson(dayId);
+
+  const { data: exercises } = useExercises(dayId);
+  const { mutate: addExercise, isLoading: isAddingExercise } =
+    useAddExercise(dayId);
 
   // Handle adding lesson
   const handleAddLesson = () => {
@@ -58,6 +65,20 @@ const LessonAndExerciseList = () => {
     }
   };
 
+  const handleAddExercise = () => {
+    if (!exerciseName) {
+      toast.error("Please enter your exercise name.");
+      return;
+    }
+    try {
+      addExercise({ exercise_name: exerciseName, day_id: dayId });
+      setExerciseName(""); // Clear input after submitting
+    } catch (err) {
+      toast.error(err.message);
+      console.error(err); // Log error for debugging
+    }
+  };
+
   return (
     <section>
       <Container className={"flex flex-col gap-4 px-6 lg:px-0"}>
@@ -68,7 +89,7 @@ const LessonAndExerciseList = () => {
           <div className="flex flex-col gap-2 p-4 border rounded-md border-gray-300">
             <AddItemForm
               label="Add New Lesson"
-              placeholder="Lesson Names..."
+              placeholder="Lesson Name..."
               value={lessonName} // Pass the state value here
               onChange={(e) => setLessonName(e.target.value)} // Pass the state setter here
               onClick={handleAddLesson}
@@ -81,15 +102,23 @@ const LessonAndExerciseList = () => {
           </div>
 
           {/* Exercise Form */}
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2 p-4 border rounded-md border-gray-300">
             <AddItemForm
               label="Add New Exercise"
-              placeholder="Exercise Names..."
-              onClick={() => {}} // Define `handleAddExercise` when required
-              isLoading={false}
-              value="" // You can manage exercise name state similarly if needed
-              onChange={() => {}} // Handle exercise name change
+              placeholder="Exercise Name..."
+              value={exerciseName}
+              onChange={(e) => setExerciseName(e.target.value)}
+              onClick={handleAddExercise}
+              isLoading={isAddingExercise}
             />
+            <p className="font-bold mt-2">Exercises</p>
+            {exercises?.map((exercise) => (
+              <ExerciseItem
+                key={exercise.id}
+                exercise={exercise}
+                dayId={dayId}
+              />
+            ))}
           </div>
         </div>
       </Container>

@@ -1,14 +1,9 @@
-// src/api/supabaseClient.js
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-// export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-// Ensure only one Supabase client is created
 const supabaseClient = (() => {
   let instance;
-
   return () => {
     if (!instance) {
       instance = createClient(supabaseUrl, supabaseAnonKey);
@@ -16,6 +11,7 @@ const supabaseClient = (() => {
     return instance;
   };
 })();
+
 export const supabase = supabaseClient();
 
 export async function uploadFile({ bucketId, file, cacheControl = "3600" }) {

@@ -10,6 +10,9 @@ import SpokenPatternList from "../features/SpokenPattern/pages/SpokenPatternList
 import UserManagement from "../features/UserManagement/pages/UserManagement";
 import Providers from "../Providers";
 import ExerciseList from "@/features/LessonAndExercise/pages/ExerciseList";
+import TranslationLevels from "@/features/Translation/pages/TranslationLevels";
+import TranslationDays from "@/features/Translation/pages/TranslationDays";
+import TranslationList from "@/features/Translation/pages/TranslationList";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +58,18 @@ const router = createBrowserRouter([
       {
         path: "/exercise_list/:exercise-id",
         element: <ExerciseList />,
+      },
+      {
+        path: "/translation-levels",
+        element: <TranslationLevels />,
+      },
+      {
+        path: "/translation-days/:level-id",
+        element: <TranslationDays />,
+      },
+      {
+        path: "/translation-list/:day-id",
+        element: <TranslationList />,
       },
     ],
   },

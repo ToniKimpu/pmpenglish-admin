@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import Container from "../../../components/Container";
-import PremiumStudentRow from "../components/PremiumStudentRow";
-import StudentRow from "../components/StudentRow";
-import { usePremiumStudents, useStudents } from "../hooks/useUser";
+import StudentTab from "../components/StudentTab";
 
 const TABS = [
   {
@@ -14,78 +12,10 @@ const TABS = [
     id: "premiumUsers",
     label: "Premium Users",
   },
-  // {
-  //   id: "freeUsers",
-  //   label: "Free Users",
-  // },
 ];
-
-const TabContent = ({ isActive, id }) => {
-  const { isLoading: isLoadingStudents, data: students } = useStudents();
-  const { isLoading: isLoadingPremium, data: premiumStudents } =
-    usePremiumStudents();
-
-  if (!isActive) {
-    return null;
-  }
-
-  let content = null;
-
-  if (id === "allUsers" && isActive) {
-    if (isLoadingStudents) {
-      return <div>Loading...</div>;
-    }
-    content = students?.map((student) => {
-      return <StudentRow key={student.id} student={student} />;
-    });
-  } else if (id === "premiumUsers") {
-    if (isLoadingPremium) {
-      return <div>Loading...</div>;
-    }
-    if (!premiumStudents?.length) {
-      return <div>No data</div>;
-    }
-    content = premiumStudents.map((student) => {
-      return <PremiumStudentRow key={student.id} student={student} />;
-    });
-  }
-
-  return (
-    <div role="tabpanel">
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Account ID
-              </th>
-              <th scope="col" className="px-6 py-3">
-                User Type
-              </th>
-              <th scope="col" className="px-6 py-3">
-                User Id
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>{content}</tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
 
 const UserManagement = () => {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
-
   return (
     <section>
       <Container className="mt-8">
@@ -129,7 +59,7 @@ const UserManagement = () => {
             />
           </div>
           {TABS.map((tab) => (
-            <TabContent
+            <StudentTab
               key={tab.id}
               isActive={activeTab === tab.id}
               id={tab.id}

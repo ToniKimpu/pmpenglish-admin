@@ -1,12 +1,12 @@
 import {
-  allPatternsByLessonId,
-  allPatternsWithoutLesson,
-  attachPatternToLesson,
+  spokenPatternsByLessonId,
+  spokenPatternsWithNoLesson,
+  attachSpokenPatternToLesson,
   createSpokenPattern,
   deleteSpokenPattern,
   editSpokenPattern,
-  patternList,
-  unAttachPatternToLesson,
+  spokenPatterns,
+  unAttachSpokenPatternToLesson,
 } from "@/services/spokenPattern";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -15,7 +15,7 @@ export const useSpokenPatterns = () => {
     data: patterns,
     error,
     isLoading,
-  } = useQuery(["pattern-list"], patternList, {
+  } = useQuery(["pattern-list"], spokenPatterns, {
     staleTime: 1000 * 60 * 5,
   });
 
@@ -31,7 +31,7 @@ export const useSpokenPatternsWithoutLesson = () => {
     data: allPatterns,
     error,
     isLoading,
-  } = useQuery(["pattern-list", "without-lesson"], allPatternsWithoutLesson, {
+  } = useQuery(["pattern-list", "with-no-lesson"], spokenPatternsWithNoLesson, {
     staleTime: 1000 * 60 * 5,
   });
 
@@ -47,7 +47,7 @@ export const useAllPatternsByLessonId = (lessonId) => {
     data: allPatterns,
     error,
     isLoading,
-  } = useQuery(["pattern-list"], () => allPatternsByLessonId(lessonId), {
+  } = useQuery(["pattern-list"], () => spokenPatternsByLessonId(lessonId), {
     staleTime: 1000 * 60 * 5,
   });
   return {
@@ -104,7 +104,7 @@ export const useDeleteSpokenPattern = () => {
 export const useAttachPatternToLesson = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (patternRelations) => attachPatternToLesson(patternRelations),
+    (patternRelations) => attachSpokenPatternToLesson(patternRelations),
     {
       onSuccess: (_) => {
         queryClient.invalidateQueries(["pattern-list"]);
@@ -118,7 +118,7 @@ export const useAttachPatternToLesson = () => {
 
 export const useUnAttachPatternToLesson = () => {
   const queryClient = useQueryClient();
-  return useMutation((patternId) => unAttachPatternToLesson(patternId), {
+  return useMutation((patternId) => unAttachSpokenPatternToLesson(patternId), {
     onSuccess: (_) => {
       queryClient.invalidateQueries(["pattern-list"]);
     },

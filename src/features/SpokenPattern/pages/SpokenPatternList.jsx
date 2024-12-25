@@ -1,12 +1,7 @@
-import { HiPlayCircle } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
 import Container from "../../../components/Container";
-import {
-  useDeleteSpokenPattern,
-  useSpokenPatterns,
-} from "../hooks/useSpokenPattern";
 import CreatePatternDialog from "../components/dialogs/CreatePatternDialog";
 import PatternItem from "../components/PatternItem";
+import { useSpokenPatterns } from "../hooks/useSpokenPattern";
 
 const SpokenPatternList = () => {
   const { patterns, isLoading, error } = useSpokenPatterns();

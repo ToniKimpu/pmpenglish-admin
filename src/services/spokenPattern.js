@@ -1,6 +1,6 @@
 import { spokenPatternBucket, supabase, uploadFile } from "./supabaseClient";
 
-export const patternList = async () => {
+export const spokenPatterns = async () => {
   const { data, error } = await supabase
     .from("patterns")
     .select("*")
@@ -12,7 +12,7 @@ export const patternList = async () => {
   return data;
 };
 
-export const allPatternsWithoutLesson = async () => {
+export const spokenPatternsWithNoLesson = async () => {
   const { data, error } = await supabase
     .from("patterns")
     .select("*")
@@ -25,7 +25,7 @@ export const allPatternsWithoutLesson = async () => {
   return data;
 };
 
-export const allPatternsByLessonId = async (lessonId) => {
+export const spokenPatternsByLessonId = async (lessonId) => {
   const { data, error } = await supabase
     .from("patterns")
     .select("*")
@@ -111,7 +111,7 @@ export const deleteSpokenPattern = async (id) => {
   }
 };
 
-export const attachPatternToLesson = async (patternRelations) => {
+export const attachSpokenPatternToLesson = async (patternRelations) => {
   const insertPromises = patternRelations.map(async ({ id, lessonId }) => {
     const { data: insertData, error: insertError } = await supabase
       .from("patterns")
@@ -130,7 +130,7 @@ export const attachPatternToLesson = async (patternRelations) => {
   });
 };
 
-export const unAttachPatternToLesson = async (patternId) => {
+export const unAttachSpokenPatternToLesson = async (patternId) => {
   const { data, error } = await supabase
     .from("patterns")
     .update({ lesson_id: null })

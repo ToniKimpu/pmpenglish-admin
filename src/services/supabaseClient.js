@@ -58,5 +58,6 @@ export async function removeFile({ bucketId, filePath }) {
   }
 }
 
-export const spokenPatternBucket = "public/spoken-patterns/";
-export const patternExerciseBucket = "public/pattern-exercises";
+export const spokenPatternBucket = "audios/spoken-patterns/";
+export const patternExerciseBucket = "audios/pattern-exercises/";
+export const translationBucket = "audios/translations/";

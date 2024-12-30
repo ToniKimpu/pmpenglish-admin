@@ -2,6 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 import Container from "../../../components/Container";
 import TranslationItem from "../components/TranslationItem";
 import { useAllTranslations } from "../hooks/useTranslation";
+import CreateTranslationDialog from "../components/dialogs/CreateTranslationDialog";
 
 const TranslationList = () => {
   const { "day-id": dayId } = useParams();
@@ -16,7 +17,7 @@ const TranslationList = () => {
           <h1 id="dashboard-title" className="text-2xl font-bold">
             Translations - {translationDay.day_name}
           </h1>
-          {/* <CreatePatternDialog /> */}
+          <CreateTranslationDialog translationDayId={dayId} />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {translations?.map((translation) => {

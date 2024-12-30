@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Container from "../../../components/Container";
 import { useSession } from "../../../context/SessionContext";
@@ -29,14 +28,14 @@ const DashboardPage = () => {
             title="Translation"
             onClick={() => navigate("/translation-levels")}
           />
-          <DashboardItem
+          {/* <DashboardItem
             title="User Self Practice"
             onClick={() => console.log("Navigate to User Management")}
           />
           <DashboardItem
             title="Q/A Section"
             onClick={() => console.log("Navigate to User Management")}
-          />
+          /> */}
           <DashboardItem
             title="Spoken Patterns"
             onClick={() => navigate("/spoken-pattern-list")}

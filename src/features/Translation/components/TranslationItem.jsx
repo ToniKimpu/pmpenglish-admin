@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import { HiPauseCircle, HiPlayCircle } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import { useDeleteTranslation } from "../hooks/useTranslation";
+import {
+  useAllTranslationVocabularies,
+  useDeleteTranslation,
+} from "../hooks/useTranslation";
+import TranslationVocabularyListDialog from "./dialogs/TranslationVocabularyListDialog";
 
 const TranslationItem = ({ translation }) => {
   const navigate = useNavigate();
@@ -48,17 +52,7 @@ const TranslationItem = ({ translation }) => {
         )}
       </div>
       <div className="flex gap-1 items-center mt-4">
-        <button
-          onClick={() => {
-            // navigate(`/spoken-pattern-detail/${pattern.id}`, {
-            //   state: { pattern },
-            // });
-          }}
-          type="button"
-          className="text-blue-600 bg-white hover:bg-green-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          Vocabulary
-        </button>
+        <TranslationVocabularyListDialog translationId={translation.id} />
         <button
           type="button"
           className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

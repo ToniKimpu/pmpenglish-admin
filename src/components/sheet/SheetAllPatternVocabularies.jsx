@@ -37,6 +37,7 @@ const SheetAllPatternVocabularies = ({
       vocabulary_id: vocabulary.id,
       patternId: patternId,
       pattern_exercise_id: patternId,
+      translation_id: patternId,
     }));
     addVocabularyRelation(insertVocabularies, {
       onSuccess: () => {

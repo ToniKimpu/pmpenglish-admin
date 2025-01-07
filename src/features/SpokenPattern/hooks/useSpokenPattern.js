@@ -7,6 +7,7 @@ import {
   editSpokenPattern,
   spokenPatterns,
   unAttachSpokenPatternToLesson,
+  addAudioPattern,
 } from "@/services/spokenPattern";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -60,8 +61,15 @@ export const useAllPatternsByLessonId = (lessonId) => {
 export const useCreateSpokenPattern = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ pattern, title, description, audio_1, audio_2 }) =>
-      createSpokenPattern(pattern, title, description, audio_1, audio_2),
+    ({ pattern, title, description, audio_1, audio_2, practicable }) =>
+      createSpokenPattern(
+        pattern,
+        title,
+        description,
+        audio_1,
+        audio_2,
+        practicable
+      ),
     {
       onSuccess: (_) => {
         queryClient.invalidateQueries(["pattern-list"]);
@@ -71,6 +79,18 @@ export const useCreateSpokenPattern = () => {
       },
     }
   );
+};
+
+export const useAddSpokenPatternAudio = (patternId) => {
+  const queryClient = useQueryClient();
+  return useMutation(({ audio }) => addAudioPattern(patternId, audio), {
+    onSuccess: (_) => {
+      queryClient.invalidateQueries(["pattern-list"]);
+    },
+    onError: (error) => {
+      console.error("Error creating pattern:", error);
+    },
+  });
 };
 
 export const useEditSpokenPattern = () => {

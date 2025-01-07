@@ -13,7 +13,7 @@ import { useCreateTranslation } from "../../hooks/useTranslation";
 
 const CreateTranslationDialog = ({ translationDayId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, reset } = useForm();
   const { mutate: createTranslationVocabulary, isLoading: creating } =
     useCreateTranslation(translationDayId);
 
@@ -27,7 +27,10 @@ const CreateTranslationDialog = ({ translationDayId }) => {
         audioPath: data.audio_path?.[0],
       },
       {
-        onSuccess: () => setIsOpen(false),
+        onSuccess: () => {
+          setIsOpen(false);
+          reset();
+        },
       }
     );
   };
@@ -88,9 +91,9 @@ const CreateTranslationDialog = ({ translationDayId }) => {
                 Word
               </label>
               <input
-                {...register("word")}
+                {...register("words")}
                 type="text"
-                id="word"
+                id="words"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Word..."
               />

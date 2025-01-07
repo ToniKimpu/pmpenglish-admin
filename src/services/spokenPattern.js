@@ -43,7 +43,8 @@ export const createSpokenPattern = async (
   title,
   description,
   audio_1,
-  audio_2
+  audio_2,
+  practicable
 ) => {
   try {
     const [audio_path_1, audio_path_2] = await Promise.all([
@@ -64,6 +65,7 @@ export const createSpokenPattern = async (
         description,
         audio_path: audio_path_1,
         audio_path_2: audio_path_2,
+        self_practicable: practicable,
       })
       .select();
 
@@ -77,6 +79,25 @@ export const createSpokenPattern = async (
     throw new Error(
       "An error occurred while creating the spoken pattern: " + err.message
     );
+  }
+};
+
+export const addAudioPattern = async (patternId, audio) => {
+  try {
+    const audio_path = await uploadFile({
+      bucketId: spokenPatternBucket,
+      file: audio,
+    });
+    const { error } = await supabase
+      .from("patterns")
+      .update({ audio_path: audio_path })
+      .eq("id", patternId);
+
+    if (error) {
+      throw new Error("Failed to add audio: " + error.message);
+    }
+  } catch (err) {
+    console.error(err);
   }
 };
 

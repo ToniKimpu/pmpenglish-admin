@@ -11,8 +11,9 @@ import {
 import { validateEnglishText } from "@/utils/textValidation";
 import { useForm } from "react-hook-form";
 
-import { useCreateSpokenPattern } from "../../hooks/useSpokenPattern";
 import ButtonSpinner2 from "@/components/ButtonSpinner2";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useCreateSpokenPattern } from "../../hooks/useSpokenPattern";
 
 const CreatePatternDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +30,7 @@ const CreatePatternDialog = () => {
         description: data.description,
         audio_1: data.audio_1?.[0],
         audio_2: data.audio_2?.[0],
+        practicable: data.practicable,
       },
       { onSuccess: () => setIsOpen(false) }
     );
@@ -99,6 +101,20 @@ const CreatePatternDialog = () => {
                 className="p-2.5 bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Description..."
               />
+            </div>
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="practicable"
+                {...register("practicable")}
+                className="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded"
+              />
+              <label
+                htmlFor="practicable"
+                className="text-sm font-medium leading-none"
+              >
+                Practicable
+              </label>
             </div>
             <div>
               <label

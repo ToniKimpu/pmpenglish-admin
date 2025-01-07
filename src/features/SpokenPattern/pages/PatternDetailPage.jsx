@@ -1,12 +1,14 @@
 import { HiPlayCircle } from "react-icons/hi2";
 import { useLocation } from "react-router-dom";
 import Container from "../../../components/Container";
-import PatternVocabularyList from "../components/PatternVocabularyList";
 import PatternExampleList from "../components/PatternExampleList";
+import PatternVocabularyList from "../components/PatternVocabularyList";
+import AddAudioDialog from "../components/dialogs/AddAudioDialog";
 
 const PatternDetailPage = () => {
   const { state } = useLocation();
   const { pattern } = state || {};
+
   return (
     <section>
       <Container className={"h-screen flex flex-col gap-4 mb-8"}>
@@ -22,7 +24,11 @@ const PatternDetailPage = () => {
             <p>{pattern.title}</p>
           </div>
           <button className="hover:bg-red-50 rounded-full p-1">
-            <HiPlayCircle className="w-8 h-8 text-blue-600" />
+            {pattern.audio_path ? (
+              <HiPlayCircle className="w-8 h-8 text-blue-600" />
+            ) : (
+              <AddAudioDialog patternId={pattern.id} />
+            )}
           </button>
         </div>
         <p>{pattern.description}</p>
